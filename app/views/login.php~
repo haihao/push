@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>lgoin</title>
+	
+</head>
+<body>
+{{ Form::open(array('url' => 'foo/bar')) }}
+	{{Form::text('username')}}
+	{{Form::password('password')}}
+	{{Form::submit('登录')}}
+{{ Form::close() }}
+
+</body>
+</html>

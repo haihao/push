@@ -1,0 +1,35 @@
+<?php
+
+class AdController extends Controller {
+	//测试方法
+	public function getTest(){
+	$ad=new Ad;
+	$ad->name="广告1";
+	$ad->time=strtotime('2014-07-18 08:15:42');
+	$ad->isclick(1);
+	$ad->save();
+	
+	//var_dump($results);
+	
+	}
+	
+
+	//修改用户密码
+	public function getReset(){
+		$user = User::find(2);
+//var_dump($user);
+		$user->password="123";
+		$user->save();
+		return "update seccess";
+	}
+
+	public function getDel($id=""){
+		if(empty($id)){
+			echo "kong de";
+			exit();
+		}
+		$user=User::find($id);
+		$user->delete();
+	}
+
+}

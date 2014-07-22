@@ -1,0 +1,68 @@
+<?php
+
+class AppController extends Controller {
+	
+	public function Appadd(){
+		//echo "app add";
+		if(Input::has('_token')){
+			
+			
+			if(Input::get('packagename')){
+				$packagename=Input::get('packagename');
+				$validator = Validator::make(
+    					array(
+						'packagename' => $packagename,
+			
+					),
+
+    					array(
+						'packagename' => 'required|alpha|min:1',
+					)
+				);
+				
+				if ($validator->fails()){
+    					// The given data did not pass validation
+					return Redirect::to('/admin/config')->withErrors($validator);
+				}else{
+					$result=DB::table('apps')->insert(
+    							array('packagename' => $packagename)
+							);
+					if($result){
+						echo '<script language="javascript">alert("添加成功")</script>';
+						echo ' <script language="javascript" type="text/javascript">
+           					window.location.href="/admin/config";
+   						</script>';
+					}
+				}
+				
+			
+			}else{
+				echo '<script language="javascript">alert("请输入添加的app名称")</script>';
+				echo ' <script language="javascript" type="text/javascript">
+           					window.location.href="/admin/config";
+   						</script>';
+				
+			}
+
+		}
+	}
+
+	public function Appdel(){
+		var_dump(Input::get('id'));
+		if(Input::get('id')){
+			$id=Input::get('id');
+			$result=DB::table('apps')->where('id','=',$id)->delete();
+		//var_dump($result);
+			if($result==1){
+				echo '<script language="javascript">alert("删除成功")</script>';
+				echo ' <script language="javascript" type="text/javascript">
+           					window.location.href="/admin/config";
+   						</script>';
+				
+			}
+
+		}
+		
+	}
+
+}

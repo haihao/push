@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>lgoin</title>
+	
+</head>
+	<h2>用户登录</h2>
+<body>
+{{ Form::open(array('url' => 'logincheck')) }}
+	<table>
+		<tr><td>用户名：</td><td>{{Form::text('username')}}</td></tr>
+	<tr><td>密&nbsp&nbsp&nbsp码：</td><td>{{Form::password('password')}}</td></tr>
+	<tr><td>{{Form::submit('登录')}}</td><td><input type="reset" value="重置" /></td></tr>
+	</table>
+{{ Form::close() }}
+
+</body>
+</html>

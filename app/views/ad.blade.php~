@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ad</title>
+	
+</head>
+<body>
+广告id{{$ad->id}}</br>
+名称：{{$ad->name}}</br>
+时间：{{$ad->time}}</br>
+是否点击：{{$ad->isclick}}</br>
+</body>
+</html>

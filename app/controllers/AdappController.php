@@ -1,0 +1,87 @@
+<?php
+
+class AdappController extends Controller {
+	
+	public function getTest(){
+		$adapp=new Adapp;
+		$adapp->img_one="fwefwefwf";
+		$adapp->dest_one="fewfwffwe";
+		$adapp->save();
+	}
+	
+
+	//得到上传的app图片和apk链接
+	public function getAppLink(){
+		//得到数据库中最新的app信息
+		$app=DB::table('adapps')->orderBy('created_at', 'desc')->first();
+		//$app=$apps[0];
+		//$applink="";
+		$applink='{"img_one":"'.$app->img_one.'","dest_one":"'.$app->dest_one.'"}';
+		echo $applink;
+	}
+
+	public function appPublish(){
+		if(Input::has('_token')){
+
+			
+			//echo "提交了东西";
+			$img=Input::file('appimg');
+			$apk=Input::file('appapk');
+
+			//验证提交信息
+			$validator = Validator::make(
+    				array(
+					'image' => $img,
+					'apk' =>$apk
+			
+				),
+
+    				array(
+					'image' => 'required|image',
+					'apk' => 'required'
+				)
+			);
+			if ($validator->fails()){
+    				// The given data did not pass validation
+				return Redirect::to('/admin/publish')->withErrors($validator);
+			}else{
+				$id=date("ymdHis").rand(0,999);
+				//存放并生成新连接
+				$imgentension=$img->getClientOriginalExtension();
+				$apkentension=$apk->getClientOriginalExtension();
+				$m_img_path="hch/image/";
+				$m_apk_path="apps/";
+				$newimgname=$id.".".$imgentension;
+				$newapkname=$id.".".$apkentension;
+				$img->move($m_img_path,$newimgname);
+				$apk->move($m_apk_path,$newapkname);
+
+				//写入数据库
+				$root=APP_ROOT;
+				$img_link=$root.$m_img_path.$newimgname;
+				$apk_link=$root.$m_apk_path.$newapkname;
+				$adapp=array('img_one'=>$img_link,'dest_one'=>$apk_link);
+				$res=DB::table('adapps')->insert($adapp);
+				if($res==1){
+					echo '<script language="javascript">alert("发布成功")</script>';
+					echo ' <script language="javascript" type="text/javascript">
+           					window.location.href="/admin/config";
+   						</script>';
+				}else{
+
+					echo '<script language="javascript">alert("发布失败")</script>';
+					echo ' <script language="javascript" type="text/javascript">
+           					window.location.href="/admin/config";
+   						</script>';
+				}
+
+			}
+
+		}
+	}
+
+	public function publishView(){
+		return View::make("publish");
+	}
+
+}

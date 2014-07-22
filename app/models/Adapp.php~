@@ -1,0 +1,12 @@
+<?php
+
+
+class Adapps extends Eloquent {
+
+	protected $table = 'adapps';
+	public $timestamps=true;
+
+
+
+
+}

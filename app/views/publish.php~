@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>publish</title>
+	
+</head>
+<body>
+	安卓推送后台  	统计|发布广告|参数配置 推出
+	</br>
+	
+{{ Form::open(array('url' => 'foo/bar')) }}
+    广告图片:<input name="appimg" type="file" /> 
+		广告名称:<input name="appimg" type="text" /> 
+		apk包:<input name="appimg" type="file" value="请选择文件" /> 
+		<input type="submit" name="Button1" value="上传"
+{{ Form::close() }}
+{{$msg}}
+
+</body>
+</html>

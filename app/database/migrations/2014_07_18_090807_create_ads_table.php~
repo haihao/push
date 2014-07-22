@@ -1,0 +1,49 @@
+<?php
+
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class CreateAdsTable extends Migration {
+
+	/**
+	 * Run the migrations.
+	 *
+	 * @return void
+	 */
+	public function up()
+	{
+		Schema::create('ads', function(Blueprint $table)
+		{
+			
+			$table->increments('id');
+			$table->timestamps();
+			$table->timestamp('time');
+			$table->integer('shows');
+			$table->integer('clicks');
+		});
+		
+		DB::table('ads')->insert(
+			array(
+				array(
+					'time'=>'2014-07-21 07:15:41',
+					'shows'=>100;
+					'clicks'=>50;
+				)
+				
+			)
+			
+		);
+		
+	}
+
+	/**
+	 * Reverse the migrations.
+	 *
+	 * @return void
+	 */
+	public function down()
+	{
+		Schema::drop('ads');
+	}
+
+}
